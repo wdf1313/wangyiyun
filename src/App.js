@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React ,{Suspense}from 'react'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import AppPlayerBar from './pages/player/app-player-bar'
+import './assets/css/base.css'
+import  {HashRouter} from 'react-router-dom'
+import { renderRoutes } from 'react-router-config'
+import {Provider} from 'react-redux'
+import routes from './router'
+import store from './store/index'
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+<Provider store={store}>
+<HashRouter>
+<Header/>
+<Suspense fallback={<div>
+  page_loading 
+</div>}>{renderRoutes(routes)}</Suspense>
+<Footer/>
+<AppPlayerBar/>
+</HashRouter>
+
+</Provider>
+  )
 }
 
-export default App;
